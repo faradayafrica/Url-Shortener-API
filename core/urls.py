@@ -2,7 +2,7 @@
 
 from django.urls import path
 
-from core.views import RedirectView, ShortenView, home, Redirect, Shorten
+from core.views import home, Redirect, Shorten
 
 app_name = 'core'
 

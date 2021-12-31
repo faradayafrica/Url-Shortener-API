@@ -1,5 +1,7 @@
+
 import os
 from django.http import HttpResponseRedirect
+from django.http.response import Http404
 from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -22,9 +24,9 @@ def home(request):
 def Redirect(request, url):
         
         try:
-            original_url = UrlModel.objects.get(short_url=url)
+            original_url = get_object_or_404(UrlModel, short_url=url).original_url
             return HttpResponseRedirect(redirect_to=original_url)
-        except UrlModel.DoesNotExist:
+        except Http404:
             pass
         return HttpResponseRedirect('https://faraday.africa')
 
@@ -42,3 +44,4 @@ def Shorten(request):
         return Response(serializer.data, status=201)
     else:
         return Response(serializer.errors, status=400)
+

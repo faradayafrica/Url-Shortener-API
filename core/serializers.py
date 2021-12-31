@@ -65,5 +65,5 @@ class UrlSerializer(serializers.ModelSerializer):
 
         url_instance = UrlModel(short_url=short_url, **validated_data)
         url_instance.save()
-
+        
         return url_instance

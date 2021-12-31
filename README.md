@@ -1,12 +1,6 @@
 # Introduction 
 
-[![Build Status](https://travis-ci.com/ahmedemad3965/Url-Shortener.svg?branch=master)](https://travis-ci.com/ahmedemad3965/Url-Shortener)  
-
-This is a Url Shortener **RESTful** API built **Django**.  
-You can freely use, edit and learn from this project. 
-This Project is very easy and simple.
-The **docker** and **docker-compose** images configuration files are stored with in the project so that you can use it and test it from anywhere with no problems.
-The **API** is fully tested with **100% Code coverage** with automated **tests** in a separate folder.  
+This is a Url Shortener **RESTful** API built **Django** for use within the Faraday Organization
 
 # Documentation 
 
@@ -14,7 +8,7 @@ There are only two **end-points** in this API, one for creating new url shorts a
 
 Creating a new Short Url:
       
-    POST 127.0.0.1/shorten  
+    POST /shorten  
 
 post request body:     
  

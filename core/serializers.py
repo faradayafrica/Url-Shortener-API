@@ -33,7 +33,7 @@ class UrlSerializer(serializers.ModelSerializer):
     def to_internal_value(self, data):
         if '://' not in data['original_url']:  # no url scheme
             new_data = copy.deepcopy(data)
-            new_data['original_url'] = 'http://' + data['original_url']
+            new_data['original_url'] = 'https://' + data['original_url']
             return super().to_internal_value(new_data)
         return super().to_internal_value(data)
 

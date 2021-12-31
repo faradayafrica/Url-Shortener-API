@@ -16,7 +16,7 @@ def generate_url():
     slug = ''.join(random.choices(s, k=N))
 
     while UrlModel.objects.filter(short_url=slug):
-        slug = uuid.uuid4().hex[:6]
+        slug = ''.join(random.choices(s, k=N)) 
 
     return slug
 

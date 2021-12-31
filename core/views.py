@@ -20,9 +20,13 @@ def home(request):
 """The view for redirect a short url to the original one"""
 @api_view(['GET'])  
 def Redirect(request, url):
-    
-    original_url = get_object_or_404(UrlModel, short_url=url).original_url
-    return HttpResponseRedirect(redirect_to=original_url)
+        
+        try:
+            original_url = UrlModel.objects.get(short_url=url)
+            return HttpResponseRedirect(redirect_to=original_url)
+        except UrlModel.DoesNotExist:
+            pass
+        return HttpResponseRedirect('https://faraday.africa')
 
 
 @api_view(['POST'])  
@@ -35,10 +39,9 @@ def Shorten(request):
         serializer.save()
         returned_data = serializer.data.get('short_url')
         
-        return Response(domain, status=201)
+        return Response(serializer.data, status=201)
     else:
         return Response(serializer.errors, status=400)
-
 
 
 

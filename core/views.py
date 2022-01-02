@@ -44,4 +44,3 @@ def Shorten(request):
         return Response(serializer.data, status=201)
     else:
         return Response(serializer.errors, status=400)
-

@@ -16,7 +16,7 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', get_random_secret_key())
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DEBUG", "True") == "False"
 
-ALLOWED_HOSTS = ['frda-sm3ib.ondigitalocean.app', 'frda.me', 'api.frda.me']
+ALLOWED_HOSTS = ['frda-sm3ib.ondigitalocean.app', 'frda.me', 'link.faraday.africa']
 
 
 # Application definition

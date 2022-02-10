@@ -34,8 +34,6 @@ def Redirect(request, url):
 @api_view(['POST'])  
 def Shorten(request):
 
-    domain = os.environ.get('SERVER_NAME')
-
     serializer = UrlSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()

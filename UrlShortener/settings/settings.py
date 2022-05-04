@@ -14,9 +14,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', get_random_secret_key())
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv("DEBUG", "True") == "False"
+DEBUG = config("DEBUG")
 
-ALLOWED_HOSTS = ['frda-sm3ib.ondigitalocean.app', 'frda.me', 'link.faraday.africa']
+ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "frda.me").split(",")
 
 
 # Application definition
@@ -130,10 +130,3 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-
-# Override production variables if DJANGO_DEVELOPMENT env variable is set in local ./bashrc file. 
-# I set it by adding "export DJANGO_DEVELOPMENT=true" to my ./bashrc file
-# To automatically override these setting if the environ variable is set.
-if os.environ.get('DJANGO_DEVELOPMENT'):
-    from .development import *  # recommended to avoid * in python but well.

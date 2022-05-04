@@ -5,7 +5,10 @@ import sys
 
 
 def main():
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'UrlShortener.settings.settings')
+    if os.environ.get('DJANGO_DEVELOPMENT', 'true'):
+        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'UrlShortener.settings.development')
+    else:
+        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'UrlShortener.settings.settings')
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:

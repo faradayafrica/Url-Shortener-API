@@ -11,6 +11,9 @@ import os
 
 from django.core.asgi import get_asgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'UrlShortener.settings.settings')
+if os.environ.get('DJANGO_DEVELOPMENT', 'true'):
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'UrlShortener.settings.development')
+else:
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'UrlShortener.settings.production')
 
 application = get_asgi_application()

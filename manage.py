@@ -2,10 +2,11 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
+from decouple import config
 
 
 def main():
-    if os.environ.get('DJANGO_DEVELOPMENT', 'true'):
+    if config('DJANGO_DEVELOPMENT') == 'dev':
         os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'UrlShortener.settings.development')
     else:
         os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'UrlShortener.settings.settings')

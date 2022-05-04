@@ -8,13 +8,14 @@ https://docs.djangoproject.com/en/3.0/howto/deployment/wsgi/
 """
 
 import os
+from decouple import config
 from django.core.wsgi import get_wsgi_application
 from whitenoise import WhiteNoise
 
-if os.environ.get('DJANGO_DEVELOPMENT', 'true'):
+if config('DJANGO_DEVELOPMENT') == 'dev':
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'UrlShortener.settings.development')
 else:
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'UrlShortener.settings.production')
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'UrlShortener.settings.settings')
 
 application = get_wsgi_application()
 application = WhiteNoise(application)

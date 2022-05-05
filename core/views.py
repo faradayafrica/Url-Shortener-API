@@ -16,7 +16,7 @@ def home(request):
     # Renders the index page for faraday.
     #
     
-    return render(request, "core/404.html")
+    return HttpResponseRedirect('https://faraday.africa')
 
 
 """The view for redirect a short url to the original one"""

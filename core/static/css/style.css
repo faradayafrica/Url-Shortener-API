@@ -8,7 +8,7 @@ body {
 
 
 .page_404 {
-    padding: 40px 0;
+    padding: 10px 0;
     background: #fff;
     font-family: "Arvo", serif;
   }
@@ -17,8 +17,8 @@ body {
     width: 100%;
   }
   
-  .four_zero_four_bg {
-    background-image: url(https://cdn.dribbble.com/users/285475/screenshots/2083086/dribbble_1.gif);
+  .four_zero_four_bg.img{
+    background-image: url('../images/backgroung.gif');
     height: 400px;
     background-position: center;
     background-repeat: no-repeat;
@@ -26,6 +26,7 @@ body {
   
   .four_zero_four_bg h1 {
     font-size: 80px;
+    margin-bottom: 1%;
   }
   
   .four_zero_four_bg h3 {

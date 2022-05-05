@@ -6,7 +6,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.decorators import api_view
-
+from django.shortcuts import render
 from core.models import UrlModel
 from core.serializers import UrlSerializer
 
@@ -28,7 +28,7 @@ def Redirect(request, url):
             return HttpResponseRedirect(redirect_to=original_url)
         except Http404:
             pass
-        return HttpResponseRedirect('https://faraday.africa')
+        return render(request, "core/404.html")
 
 
 @api_view(['POST'])  

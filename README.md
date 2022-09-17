@@ -8,7 +8,7 @@ There are only two **end-points** in this API, one for creating new url shorts a
 
 Creating a new Short Url:
       
-    POST /shorten  
+    POST base_url/api/shorten/  
 
 post request body:     
  
@@ -18,4 +18,4 @@ post request body:
 
 to Redirect from shortened url to original url we use:       
    
-    GET 127.0.0.1/{short_url}
+    GET base_url/{short_url}

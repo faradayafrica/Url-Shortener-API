@@ -8,6 +8,6 @@ app_name = 'core'
 
 urlpatterns = [
     path('', home),
-    path('api/shorten', Shorten, name='shorten'),
+    path('api/shorten/', Shorten, name='shorten'),
     path('<str:url>', Redirect, name='redirect')
 ]

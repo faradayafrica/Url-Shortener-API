@@ -16,7 +16,7 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', get_random_secret_key())
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', '0.0.0.0', 'frda.azurewebsites.net']
+ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "frda.azurewebsites.net").split(",")
 
 # Application definition
 

@@ -13,7 +13,7 @@ If you've never made an open source contribution before or you are wondering how
     $ git clone https://github.com/<your-GitHub-username>/Url-Shortener-API.git
     ```
 
-4. Create a new branch for your fix 
+4. Create a new branch for your changes or fix 
 
     ```sh
      $ git checkout -b <branch-name>

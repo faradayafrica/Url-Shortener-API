@@ -6,7 +6,7 @@ If you are looking to help with a code contribution, our project uses Python. If
 
 If you've never made an open source contribution before or you are wondering how contributions work in our project? Here's a quick rundown!
 
-1. Fork the repository to your account. This means that you will have a copy of the repository under `<your-GitHub-username>/<repository-name>`.
+1. Fork the [repository](https://github.com/faradayafrica/Url-Shortener-API) to your account. This means that you will have a copy of the repository under `<your-GitHub-username>/<repository-name>`.
 2. Clone the repository to your local machine using by copying the link provided under `HTTPS` when you click on the green button labelled `code` on the repository page
 
     ```sh

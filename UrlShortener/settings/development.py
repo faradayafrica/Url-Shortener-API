@@ -19,13 +19,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1").split(",")
 
-CORS_ALLOWED_ORIGINS = [
-    'http://localhost',
-    'http://127.0.0.1'
-]
-
-CORS_ALLOW_HEADERS = DEFAULT_HEADERS
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -103,6 +96,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+CORS_ALLOW_ALL_ORIGINS = True
+
+CORS_ALLOW_HEADERS = DEFAULT_HEADERS
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/

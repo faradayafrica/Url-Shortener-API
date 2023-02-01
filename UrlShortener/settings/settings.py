@@ -19,16 +19,6 @@ DEBUG = False
 
 ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "frda.me").split(",")
 
-CORS_ALLOWED_ORIGINS = [
-    "https://link.faraday.africa",
-    "https://frda.azurewebsites.net",
-]
-
-CSRF_TRUSTED_ORIGINS = [
-    "https://link.faraday.africa",
-    "https://frda.azurewebsites.net",
-]
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -110,6 +100,15 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://link.faraday.africa",
+    "https://frda.azurewebsites.net",
+]
+
+CORS_ALLOW_ALL_ORIGINS = True
+
+CORS_ALLOW_HEADERS = DEFAULT_HEADERS
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/

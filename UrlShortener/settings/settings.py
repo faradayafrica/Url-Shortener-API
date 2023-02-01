@@ -2,6 +2,7 @@ import os
 from pathlib import Path
 from decouple import config
 from django.core.management.utils import get_random_secret_key
+from UrlShortener.settings.default import DEFAULT_HEADERS
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -14,10 +15,19 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', get_random_secret_key())
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config("DEBUG")
+DEBUG = False
 
-ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1").split(",")
+ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "frda.me").split(",")
 
+CORS_ALLOWED_ORIGINS = [
+    "https://link.faraday.africa",
+    "https://frda.azurewebsites.net",
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://link.faraday.africa",
+    "https://frda.azurewebsites.net",
+]
 
 # Application definition
 
@@ -29,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'core',
-    'rest_framework'
+    'rest_framework',
     'corsheaders',
 ]
 
@@ -99,16 +109,6 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
-]
-
-CORS_ALLOWED_ORIGINS = [
-    "https://link.faraday.africa",
-    "https://frda.azurewebsites.net",
-]
-
-CSRF_TRUSTED_ORIGINS = [
-    "https://link.faraday.africa",
-    "https://frda.azurewebsites.net",
 ]
 
 # Internationalization

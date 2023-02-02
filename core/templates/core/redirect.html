@@ -8,8 +8,14 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0" description="Faraday - Redirecting...">
 
-        <meta property="og:title" content="Faraday - Redirecting..." />
-        <meta property="og:description" content="Redirecting to link in 5 seconds" />
+        <meta property="og:title" content="Faraday | Redirecting..." />
+
+        {% if object.page_info %}
+            <meta property="og:description" content="{{object.page_info}}" />
+        {% else %}
+            <meta property="og:description" content="Redirecting to link in 6 seconds" />
+        {% endif %}
+
         <meta property="og:image" content="https://camo.githubusercontent.com/41760185905587b5834025a8239aa1bed78075991d2479c8535c1f427c01127f/68747470733a2f2f656e637279707465642d74626e302e677374617469632e636f6d2f696d616765733f713d74626e3a414e6439476353324c5a3076425632547635444b55785f68325a4e6d4f554b624155614f4d785442655126757371703d434155" />
         
         <link rel="icon" href="{% static 'images/favicon.ico' %}">

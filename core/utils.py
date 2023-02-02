@@ -137,7 +137,7 @@ class Metadatareader:
         return default_value
     
     
-# content = "https://stackoverflow.com/questions/22218894/get-title-and-description-of-external-url-using-django/41648695#41648695"
+# content = "https://stdntpartners.sharepoint.com/sites/Community/Shared%20Documents/Forms/AllItems.aspx?ct=1673012603812&or=Teams%2DHL&ga=1&id=%2Fsites%2FCommunity%2FShared%20Documents%2FSocial%20Stories%2FSubmissions%20for%202023%20Welcome%20Video"
 # metadata = Metadatareader.get_metadata_from_url_in_text(content)
 # print(metadata.url)
 # print(metadata.title)

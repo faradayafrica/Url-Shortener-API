@@ -1,101 +1,658 @@
 {% load static %}
 
 <!DOCTYPE html>
-
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" description="Faraday - Redirecting...">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" description="Faraday - Redirecting...">
 
-        {% if object.metatitle %}
-            <meta property="og:title" content="{{object.metatitle}}" />
-        {% else %}
-            <meta property="og:title" content="Faraday Link Shortener | Redirecting..." />
-        {% endif %}
+  {% if object.metatitle %}
+      <meta property="og:title" content="{{object.metatitle}}" />
+  {% else %}
+      <meta property="og:title" content="Faraday Link Shortener | Redirecting..." />
+  {% endif %}
 
-        {% if object.page_info %}
-            <meta property="og:description" content="{{object.page_info}}" />
-        {% elif object.metadescription %}
-            <meta property="og:description" content="{{object.metadescription}}" />
-        {% else %}
-            <meta property="og:description" content="Redirecting to link in 6 seconds" />
-        {% endif %}
+  {% if object.page_info %}
+      <meta property="og:description" content="{{object.page_info}}" />
+  {% elif object.metadescription %}
+      <meta property="og:description" content="{{object.metadescription}}" />
+  {% else %}
+      <meta property="og:description" content="Redirecting to link in 4 seconds" />
+  {% endif %}
 
-        {% if object.metaimage %}
-            <meta property="og:image" content="{{object.metaimage}}" />
-        {% else %}
-            <meta property="og:image" content="https://camo.githubusercontent.com/41760185905587b5834025a8239aa1bed78075991d2479c8535c1f427c01127f/68747470733a2f2f656e637279707465642d74626e302e677374617469632e636f6d2f696d616765733f713d74626e3a414e6439476353324c5a3076425632547635444b55785f68325a4e6d4f554b624155614f4d785442655126757371703d434155" />
-        {% endif %}
-        
-        <link rel="icon" href="{% static 'images/favicon.ico' %}">
-        <link rel="stylesheet" href="{% static 'css/style.css' %}"> 
+  {% if object.metaimage %}
+      <meta property="og:image" content="{{object.metaimage}}" />
+  {% else %}
+      <meta property="og:image" content="https://camo.githubusercontent.com/41760185905587b5834025a8239aa1bed78075991d2479c8535c1f427c01127f/68747470733a2f2f656e637279707465642d74626e302e677374617469632e636f6d2f696d616765733f713d74626e3a414e6439476353324c5a3076425632547635444b55785f68325a4e6d4f554b624155614f4d785442655126757371703d434155" />
+  {% endif %}
 
-        {% if object.metatitle %}
-            <title>{{object.metatitle}}</title>
-        {% else %}
-            <title>Faraday - Redirecting...</title>
-        {% endif %}
+  {% if object.metatitle %}
+      <title>{{object.metatitle}}</title>
+  {% else %}
+      <title>Faraday - Redirecting...</title>
+  {% endif %}
 
-    </head>
-    <body>
+  <link rel="stylesheet" href="{% static 'new/vendor/animate/animate.css' %}">
 
-        <section class="page_404">
-            <div class="container">
-            <img src="{% static 'images/faraday.svg' %}" style="text-center;   width: 13vh;
-            height: 13vh;" />
-            <div class="row">
-                <div class="col-sm-12 ">
-                <div class="col-sm-10 col-sm-offset-1  text-center">
-                    <div class="four_zero_four_bg">
-                    <h1 class="text-center">Wait a moment</h1>
-                    <div class="redirect_four_zero_four_bg img"></div>
-                    </div>
-        
-                    <div class="contant_box_404">
-                    <h2 class="h2">
-                        Redirecting you to your requested <a id="redirect_link" href="{{object.original_url}}"> link </a> in <br> <p id="countdown"></p>
-                    </h2>
-        
-                    {% if object.page_info %}
-                        <p>{{object.page_info}}</p>
-                    {% elif object.metadescription %}
-                        <p>{{object.metadescription}}</p><br>
-                        <p>{{object.metatitle}}</p><br>
-                    {% else %}
-                        <p>Take a moment to rest</p>
-                    {% endif %}
-        
-                    <a href="https://www.faraday.africa" class="link_404">Go to Home</a>
-                    <a href="https://events.faraday.africa" class="link_404">See Our Events</a>
-                    <a href="https://community.faraday.africa" class="link_404">Visit the Community</a>
-                    </div>
-                </div>
-                </div>
+  <link rel="stylesheet" href="{% static 'new/css/bootstrap.css' %}">
+
+  <link rel="stylesheet" href="{% static 'new/css/maicons.css' %}">
+
+  <link rel="stylesheet" href="{% static 'new/vendor/owl-carousel/css/owl.carousel.css' %}">
+
+  <link rel="stylesheet" href="{% static 'new/css/theme.css' %}">
+
+  <link rel="icon" href="{% static 'images/favicon.ico' %}">
+
+</head>
+<body>
+
+  <!-- Back to top button -->
+  <div class="back-to-top"></div>
+
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-light navbar-float">
+      <div class="container">
+        <a href="https://faraday.africa" ><img src="{% static 'images/faraday.svg' %}"  class="navbar-brand" /></a>
+
+        <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="navbar-collapse collapse" id="navbarContent">
+          <ul class="navbar-nav ml-lg-4 pt-3 pt-lg-0">
+            <li class="nav-item active">
+              <a class="nav-link">Link Redirect</a>
+            </li>
+            <li class="nav-item">
+              <a href="https://community.faraday.africa" class="nav-link">Community</a>
+            </li>
+            <li class="nav-item">
+              <a href="https://events.faraday.africa" class="nav-link">Events</a>
+            </li>
+            <li class="nav-item">
+              <a href="https://faradayafrica.medium.com" class="nav-link">Blog</a>
+            </li>
+            <li class="nav-item">
+              <a href="mailto:support@faraday.africa" class="nav-link">Contact us</a>
+            </li>
+          </ul>
+
+          <div class="ml-auto">
+            <a href="https://app.faraday.africa/signup" class="btn btn-success rounded-pill">Sign up</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="page-banner home-banner">
+      <div class="container h-100">
+        <div class="row align-items-center h-100">
+          <div class="col-lg-6 py-3 wow fadeInUp">
+            <h1 class="mb-4">In a hurry?</h1>
+            <p class="text-lg mb-5">The link you've requested was shortened by Faraday. If you don't perform any any action you'll be automatically redirected to your requested link, or you can click the green button that says "Continue to link" to immediately be redirected there. While you are here, check below for information about the link you want to visit.</p>
+            <a class="countdown btn btn-outline border-success text-secondary">6 seconds</a>
+            <a id="redirect_link" href="{{object.original_url}}" class="btn btn-success btn-split ml-2">Continue to link <div class="fab"><span class="mai-play"></span></div></a>
+          </div>
+          <div class="col-lg-6 py-3 wow zoomIn">
+            <div class="img-place">
+              <img src="{% static 'images/wait.gif' %}" alt="">
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="page-section features">
+      <div class="container">
+        <div class="row justify-content-center">
+
+          {% if object.page_info and object.metadescription and object.metatitle %}
+          <div class="col-md-6 col-lg-4 py-3 wow fadeInUp">
+            <div class="d-flex flex-row">
+              <div class="img-fluid mr-3">
+                <img src="{% static 'new/img/icon_pattern.svg' %}" alt="">
+              </div>
+              <div>
+                <h3>Link information</h3>
+                <h6>{{object.page_info}}</h6>
+                <p><small>This information was provided when the link was shortened</small></p>
+              </div>
             </div>
-        </section>
+          </div>
 
-        <script>
+          <div class="col-md-6 col-lg-4 py-3 wow fadeInUp">
+            <div class="d-flex flex-row">
+              <div class="img-fluid mr-3">
+                <img src="{% static 'new/img/icon_pattern.svg' %}" alt="">
+              </div>
+              <div>
+                <h3>Link Description</h3>
+                <h6>{{object.metadescription}}</h6>
+              </div>
+            </div>
+          </div>
 
-                var link = document.getElementById("redirect_link").href;
-                var timeleft = 15;
-                var downloadTimer = setInterval(function(){
-                if(timeleft <= 0){
-                    window.location.href = link;
-                } else {
-                    document.getElementById("countdown").innerHTML = timeleft + " seconds";
-                }
-                timeleft -= 1;
-                }, 1000);
+          <div class="col-md-6 col-lg-4 py-3 wow fadeInUp">
+            <div class="d-flex flex-row">
+              <div class="img-fluid mr-3">
+                <img src="{% static 'new/img/icon_pattern.svg' %}" alt="">
+              </div>
+              <div>
+                <h3>Link Title</h3>
+                <h6>{{object.metatitle}}</h6>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4 py-3 wow fadeInUp">
+            <div class="d-flex flex-row">
+              <div class="img-fluid mr-3">
+                <img src="{% static 'new/img/icon_pattern.svg' %}" alt="">
+              </div>
+              <div>
+                <h3>Link URL</h3>
+                <h6>{{object.original_url}}</h6>
+              </div>
+            </div>
+          </div>
+
+          {% elif object.metadescription and object.metatitle %}
+
+          <div class="col-md-6 col-lg-4 py-3 wow fadeInUp">
+            <div class="d-flex flex-row">
+              <div class="img-fluid mr-3">
+                <img src="{% static 'new/img/icon_pattern.svg' %}" alt="">
+              </div>
+              <div>
+                <h3>Link Description</h3>
+                <h6>{{object.metadescription}}</h6>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4 py-3 wow fadeInUp">
+            <div class="d-flex flex-row">
+              <div class="img-fluid mr-3">
+                <img src="{% static 'new/img/icon_pattern.svg' %}" alt="">
+              </div>
+              <div>
+                <h3>Link Title</h3>
+                <h6>{{object.metatitle}}</h6>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4 py-3 wow fadeInUp">
+            <div class="d-flex flex-row">
+              <div class="img-fluid mr-3">
+                <img src="{% static 'new/img/icon_pattern.svg' %}" alt="">
+              </div>
+              <div>
+                <h3>Link URL</h3>
+                <h6>{{object.original_url}}</h6>
+              </div>
+            </div>
+          </div>
+
+          {% elif not object.page_info or object.metadescription or object.metatitle %}
+
+          <div class="col-md-6 col-lg-4 py-3 wow fadeInUp">
+            <div class="d-flex flex-row">
+              <div class="img-fluid mr-3">
+                <img src="{% static 'new/img/icon_pattern.svg' %}" alt="">
+              </div>
+              <div>
+                <h3>Link URL</h3>
+                <h6>{{object.original_url}}</h6>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4 py-3 wow fadeInUp">
+            <div class="d-flex flex-row">
+              <div class="img-fluid mr-3">
+                <img src="{% static 'new/img/icon_pattern.svg' %}" alt="">
+              </div>
+              <div>
+                <h3>Link information</h3>
+                <h6>We couldn't find more information about the requested link.</h6>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+
+        </div>
+      </div> <!-- .container -->
+    </div>
+  
+    {% comment %} <div class="page-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 py-3 wow zoomIn">
+            <div class="img-place text-center">
+              <img src="{% static 'new/img/bg_image_2.png' %}" alt="">
+            </div>
+          </div>
+          <div class="col-lg-6 py-3 wow fadeInRight">
+            <h2 class="title-section">We're <span class="marked">Dynamic</span> Team of Creatives People</h2>
+            <div class="divider"></div>
+            <p>We provide marketing services to startups & small business to looking for partner for their digital media, design & dev lead generation & communication.</p>
+            <div class="img-place mb-3">
+              <img src="{% static 'new/img/testi_image.png' %}" alt="">
+            </div>
+            <a href="#" class="btn btn-primary">More Details</a>
+            <a href="#" class="btn btn-outline border ml-2">Success Stories</a>
+          </div>
+        </div>
+      </div> <!-- .container -->
+    </div>
+  
+    <div class="page-section counter-section">
+      <div class="container">
+        <div class="row align-items-center text-center">
+          <div class="col-lg-4">
+            <p>Total Invest</p>
+            <h2>$<span class="number" data-number="816278"></span></h2>
+          </div>
+          <div class="col-lg-4">
+            <p>Yearly Revenue</p>
+            <h2>$<span class="number" data-number="216422"></span></h2>
+          </div>
+          <div class="col-lg-4">
+            <p>Growth Ration</p>
+            <h2><span class="number" data-number="73"></span>%</h2>
+          </div>
+        </div>
+      </div> <!-- .container -->
+    </div>
+  
+    <div class="page-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 py-3 wow fadeInLeft">
+            <h2 class="title-section">We're <span class="marked">ready to</span> Serve you with best</h2>
+            <div class="divider"></div>
+            <p class="mb-5">We provide marketing services to startups & small business to looking for partner for their digital media, design & dev lead generation & communication.</p>
+            <a href="#" class="btn btn-primary">More Details</a>
+            <a href="#" class="btn btn-outline ml-2">See pricing</a>
+          </div>
+          <div class="col-lg-6 py-3 wow zoomIn">
+            <div class="img-place text-center">
+              <img src="{% static 'new/img/bg_image_3.png' %}" alt="">
+            </div>
+          </div>
+        </div>
+      </div> <!-- .container -->
+    </div>
+  
+    <div class="page-section">
+      <div class="container">
+        <div class="text-center wow fadeInUp">
+          <div class="subhead">Why Choose Us</div>
+          <h2 class="title-section">Your <span class="marked">Comfort</span> is Our Priority</h2>
+          <div class="divider mx-auto"></div>
+        </div>
+  
+        <div class="row mt-5 text-center">
+          <div class="col-lg-4 py-3 wow fadeInUp">
+            <div class="display-3"><span class="mai-shapes"></span></div>
+            <h5>High Performance</h5>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum, sit.</p>
+          </div>
+          <div class="col-lg-4 py-3 wow fadeInUp">
+            <div class="display-3"><span class="mai-shapes"></span></div>
+            <h5>Friendly Prices</h5>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum, sit.</p>
+          </div>
+          <div class="col-lg-4 py-3 wow fadeInUp">
+            <div class="display-3"><span class="mai-shapes"></span></div>
+            <h5>No time-confusing</h5>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum, sit.</p>
+          </div>
+        </div>
+      </div> <!-- .container -->
+    </div>
+  
+    <div class="page-section border-top">
+      <div class="container">
+        <div class="text-center wow fadeInUp">
+          <h2 class="title-section">Pricing Plan</h2>
+          <div class="divider mx-auto"></div>
+        </div>
+  
+        <div class="row justify-content-center">
+          <div class="col-12 col-lg-auto py-3 wow fadeInLeft">
+            <div class="card-pricing">
+              <div class="header">
+                <div class="price-icon"><span class="mai-people"></span></div>
+                <div class="price-title">Membership</div>
+              </div>
+              <div class="body py-3">
+                <div class="price-tag">
+                  <span class="currency">$</span>
+                  <h2 class="display-4">30</h2>
+                  <span class="period">/monthly</span>
+                </div>
+                <div class="price-info">
+                  <p>Choose the plan that right for you</p>
+                </div>
+              </div>
+              <div class="footer">
+                <a href="#" class="btn btn-outline rounded-pill">Choose Plan</a>
+              </div>
+            </div>
+          </div>
+  
+          <div class="col-12 col-lg-auto py-3 wow fadeInUp">
+            <div class="card-pricing active">
+              <div class="header">
+                <div class="price-labled">Best</div>
+                <div class="price-icon"><span class="mai-business"></span></div>
+                <div class="price-title">Dedicated</div>
+              </div>
+              <div class="body py-3">
+                <div class="price-tag">
+                  <span class="currency">$</span>
+                  <h2 class="display-4">60</h2>
+                  <span class="period">/monthly</span>
+                </div>
+                <div class="price-info">
+                  <p>Choose the plan that right for you</p>
+                </div>
+              </div>
+              <div class="footer">
+                <a href="#" class="btn btn-outline rounded-pill">Choose Plan</a>
+              </div>
+            </div>
+          </div>
+  
+          <div class="col-12 col-lg-auto py-3 wow fadeInRight">
+            <div class="card-pricing">
+              <div class="header">
+                <div class="price-icon"><span class="mai-rocket-outline"></span></div>
+                <div class="price-title">Private</div>
+              </div>
+              <div class="body py-3">
+                <div class="price-tag">
+                  <span class="currency">$</span>
+                  <h2 class="display-4">90</h2>
+                  <span class="period">/monthly</span>
+                </div>
+                <div class="price-info">
+                  <p>Choose the plan that right for you</p>
+                </div>
+              </div>
+              <div class="footer">
+                <a href="#" class="btn btn-outline rounded-pill">Choose Plan</a>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div> <!-- .container -->
+    </div>
+  
+    <div class="page-section bg-light">
+      <div class="container">
+        
+        <div class="owl-carousel wow fadeInUp" id="testimonials">
+          <div class="item">
+            <div class="row align-items-center">
+              <div class="col-md-6 py-3">
+                <div class="testi-image">
+                  <img src="{% static 'new/img/person/person_1.jpg' %}" alt="">
+                </div>
+              </div>
+              <div class="col-md-6 py-3">
+                <div class="testi-content">
+                  <p>Necessitatibus ipsum magni accusantium consequatur delectus a repudiandae nemo quisquam dolorum itaque, tenetur, esse optio eveniet beatae explicabo sapiente quo.</p>
+                  <div class="entry-footer">
+                    <strong>Melvin Platje</strong> &mdash; <span class="text-grey">CEO Slurin Group</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+  
+          <div class="item">
+            <div class="row align-items-center">
+              <div class="col-md-6 py-3">
+                <div class="testi-image">
+                  <img src="{% static 'new/img/person/person_2.jpg' %}" alt="">
+                </div>
+              </div>
+              <div class="col-md-6 py-3">
+                <div class="testi-content">
+                  <p>Repudiandae vero assumenda sequi labore ipsum eos ducimus provident a nam vitae et, dolorum temporibus inventore quaerat consectetur quos! Animi, qui ratione?</p>
+                  <div class="entry-footer">
+                    <strong>George Burke</strong> &mdash; <span class="text-grey">CEO Letro</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+  
+        </div>
+      </div> <!-- .container -->
+    </div>
+  
+    <div class="page-section">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-6 py-3 wow fadeInUp">
+            <h2 class="title-section">Get in Touch</h2>
+            <div class="divider"></div>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.<br> Laborum ratione autem quidem veritatis!</p>
+  
+            <ul class="contact-list">
+              <li>
+                <div class="icon"><span class="mai-map"></span></div>
+                <div class="content">123 Fake Street, New York, USA</div>
+              </li>
+              <li>
+                <div class="icon"><span class="mai-mail"></span></div>
+                <div class="content"><a href="#">info@digigram.com</a></div>
+              </li>
+              <li>
+                <div class="icon"><span class="mai-phone-portrait"></span></div>
+                <div class="content"><a href="#">+00 1122 3344 55</a></div>
+              </li>
+            </ul>
+          </div>
+          <div class="col-lg-6 py-3 wow fadeInUp">
+            <div class="subhead">Contact Us</div>
+            <h2 class="title-section">Drop Us a Line</h2>
+            <div class="divider"></div>
             
+            <form action="#">
+              <div class="py-2">
+                <input type="text" class="form-control" placeholder="Full name">
+              </div>
+              <div class="py-2">
+                <input type="text" class="form-control" placeholder="Email">
+              </div>
+              <div class="py-2">
+                <textarea rows="6" class="form-control" placeholder="Enter message"></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary rounded-pill mt-4">Send Message</button>
+            </form>
+          </div>
+        </div>
+      </div> <!-- .container -->
+    </div>
+  
+    <div class="page-section border-top">
+      <div class="container">
+        <div class="text-center wow fadeInUp">
+          <div class="subhead">Our Blog</div>
+          <h2 class="title-section">Read our latest <span class="marked">News</span></h2>
+          <div class="divider mx-auto"></div>
+        </div>
+        <div class="row my-5 card-blog-row">
+          <div class="col-md-6 col-lg-3 py-3 wow fadeInUp">
+            <div class="card-blog">
+              <div class="header">
+                <div class="entry-footer">
+                  <div class="post-author">Sam Newman</div>
+                  <a href="#" class="post-date">23 Apr 2020</a>
+                </div>
+              </div>
+              <div class="body">
+                <div class="post-title"><a href="blog-single.html">What is Business Management?</a></div>
+              </div>
+              <div class="footer">
+                <a href="blog-single.html">Read More <span class="mai-chevron-forward text-sm"></span></a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3 py-3 wow fadeInUp">
+            <div class="card-blog">
+              <div class="header">
+                <div class="avatar">
+                  <img src="{% static 'new/img/person/person_1.jpg' %}" alt="">
+                </div>
+                <div class="entry-footer">
+                  <div class="post-author">Sam Newman</div>
+                  <a href="#" class="post-date">23 Apr 2020</a>
+                </div>
+              </div>
+              <div class="body">
+                <div class="post-title"><a href="blog-single.html">What is Business Management?</a></div>
+                <div class="post-excerpt">Lorem, ipsum dolor sit amet consectetur adipisicing elit.</div>
+              </div>
+              <div class="footer">
+                <a href="blog-single.html">Read More <span class="mai-chevron-forward text-sm"></span></a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3 py-3 wow fadeInUp">
+            <div class="card-blog">
+              <div class="header">
+                <div class="avatar">
+                  <img src="{% static 'new/img/person/person_2.jpg' %}" alt="">
+                </div>
+                <div class="entry-footer">
+                  <div class="post-author">Sam Newman</div>
+                  <a href="#" class="post-date">23 Apr 2020</a>
+                </div>
+              </div>
+              <div class="body">
+                <div class="post-title"><a href="blog-single.html">What is Business Management?</a></div>
+                <div class="post-excerpt">Lorem, ipsum dolor sit amet consectetur adipisicing elit.</div>
+              </div>
+              <div class="footer">
+                <a href="blog-single.html">Read More <span class="mai-chevron-forward text-sm"></span></a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3 py-3 wow fadeInUp">
+            <div class="card-blog">
+              <div class="header">
+                <div class="avatar">
+                  <img src="{% static 'new/img/person/person_3.jpg' %}" alt="">
+                </div>
+                <div class="entry-footer">
+                  <div class="post-author">Sam Newman</div>
+                  <a href="#" class="post-date">23 Apr 2020</a>
+                </div>
+              </div>
+              <div class="body">
+                <div class="post-title"><a href="blog-single.html">What is Business Management?</a></div>
+                <div class="post-excerpt">Lorem, ipsum dolor sit amet consectetur adipisicing elit.</div>
+              </div>
+              <div class="footer">
+                <a href="blog-single.html">Read More <span class="mai-chevron-forward text-sm"></span></a>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <div class="text-center">
+          <a href="blog.html" class="btn btn-outline-primary rounded-pill">Discover More</a>
+        </div>
+      </div> <!-- .container -->
+    </div>
+  
+    <div class="page-section client-section">
+      <div class="container-fluid">
+        <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 justify-content-center">
+          <div class="item wow zoomIn">
+            <img src="{% static 'new/img/clients/airbnb.png' %}" alt="">
+          </div>
+          <div class="item wow zoomIn">
+            <img src="{% static 'new/img/clients/google.png' %}" alt="">
+          </div>
+          <div class="item wow zoomIn">
+            <img src="{% static 'new/img/clients/stripe.png' %}" alt="">
+          </div>
+          <div class="item wow zoomIn">
+            <img src="{% static 'new/img/clients/paypal.png' %}" alt="">
+          </div>
+          <div class="item wow zoomIn">
+            <img src="{% static 'new/img/clients/mailchimp.png' %}" alt="">
+          </div>
+        </div>
+      </div> <!-- .container-fluid -->
+    </div> {% endcomment %}
+  </main>
 
-        </script>
+  <footer class="page-footer">
+    <div class="container">
 
-    </body>
 
-    <footer>
-        <hr>
-        <p>&copy Faraday 2022. All Rights Reserved.</p>
-    </footer>
+      <div class="row">
+        <div class="col-sm-6 py-2">
+          <p id="copyright">&copy; 2023 <a href="https://faraday.africa/">Faraday Africa</a>. All rights reserved</p>
+        </div>
+        <div class="col-sm-6 py-2 text-right">
+          <div class="d-inline-block px-3">
+            <a href="#">Privacy</a>
+          </div>
+          <div class="d-inline-block px-3">
+            <a href="#">Contact Us</a>
+          </div>
+        </div>
+      </div>
+    </div> <!-- .container -->
+  </footer> <!-- .page-footer -->
+
+
+  <script src="{% static 'new/js/jquery-3.5.1.min.js' %}"></script>
+
+  <script src="{% static 'new/js/bootstrap.bundle.min.js' %}"></script>
+
+  <script src="{% static 'new/vendor/wow/wow.min.js' %}"></script>
+
+  <script src="{% static 'new/vendor/owl-carousel/js/owl.carousel.min.js' %}"></script>
+
+  <script src="{% static 'new/vendor/waypoints/jquery.waypoints.min.js' %}"></script>
+
+  <script src="{% static 'new/vendor/animateNumber/jquery.animateNumber.min.js' %}"></script>
+
+  <script src="{% static 'new/js/google-maps.js' %}"></script>
+
+  <script src="{% static 'new/js/theme.js' %}"></script>
+
+  <script>
+
+    var link = document.getElementById("redirect_link").href;
+    var timeleft = 5;
+    var downloadTimer = setInterval(function(){
+    if(timeleft <= 0){
+        window.location.href = link;
+    } else {
+        document.querySelector(".countdown").innerHTML = timeleft + " seconds";
+    }
+    timeleft -= 1;
+    }, 1000);
+
+
+  </script>
+
+
+</body>
 </html>

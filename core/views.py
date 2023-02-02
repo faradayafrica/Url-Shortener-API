@@ -44,6 +44,12 @@ def AjaxRedirect(request):
     
     return render(request, "core/redirect.html")
 
+"""The view called by ajax to redirect a short url to the original link"""
+@api_view(['GET'])  
+def NewAjaxRedirect(request):
+    
+    return render(request, "core/index.html")
+
 @api_view(['POST'])  
 def Shorten(request):
 

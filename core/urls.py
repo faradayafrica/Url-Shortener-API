@@ -2,7 +2,7 @@
 
 from django.urls import path
 
-from core.views import home, Redirect, Shorten, AjaxRedirect
+from core.views import home, Redirect, Shorten, AjaxRedirect, NewAjaxRedirect
 
 app_name = 'core'
 
@@ -10,5 +10,6 @@ urlpatterns = [
     path('', home),
     path('api/shorten/', Shorten, name='shorten'),
     path('redirect/pause/', AjaxRedirect, name='pause-redirect'),
+    path('redirect/new/', NewAjaxRedirect, name='new-redirect'),
     path('<str:url>', Redirect, name='redirect')
 ]

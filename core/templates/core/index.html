@@ -1,0 +1,101 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" description="Faraday - Redirecting...">
+
+        {% if object.metatitle %}
+            <meta property="og:title" content="{{object.metatitle}}" />
+        {% else %}
+            <meta property="og:title" content="Faraday Link Shortener | Redirecting..." />
+        {% endif %}
+
+        {% if object.page_info %}
+            <meta property="og:description" content="{{object.page_info}}" />
+        {% elif object.metadescription %}
+            <meta property="og:description" content="{{object.metadescription}}" />
+        {% else %}
+            <meta property="og:description" content="Redirecting to link in 4 seconds" />
+        {% endif %}
+
+        {% if object.metaimage %}
+            <meta property="og:image" content="{{object.metaimage}}" />
+        {% else %}
+            <meta property="og:image" content="https://camo.githubusercontent.com/41760185905587b5834025a8239aa1bed78075991d2479c8535c1f427c01127f/68747470733a2f2f656e637279707465642d74626e302e677374617469632e636f6d2f696d616765733f713d74626e3a414e6439476353324c5a3076425632547635444b55785f68325a4e6d4f554b624155614f4d785442655126757371703d434155" />
+        {% endif %}
+        
+        <link rel="icon" href="{% static 'images/favicon.ico' %}">
+        <link rel="stylesheet" href="{% static 'css/style.css' %}"> 
+
+        {% if object.metatitle %}
+            <title>{{object.metatitle}}</title>
+        {% else %}
+            <title>Faraday - Redirecting...</title>
+        {% endif %}
+
+    </head>
+    <body>
+
+        <section class="page_404">
+            <div class="container">
+            <img src="{% static 'images/faraday.svg' %}" style="text-center;   width: 13vh;
+            height: 13vh;" />
+            <div class="row">
+                <div class="col-sm-12 ">
+                <div class="col-sm-10 col-sm-offset-1  text-center">
+                    <div class="four_zero_four_bg">
+                    <h1 class="text-center">Wait a moment</h1>
+                    <div class="redirect_four_zero_four_bg img"></div>
+                    </div>
+        
+                    <div class="contant_box_404">
+                    <h2 class="h2">
+                        Redirecting you to your requested <a id="redirect_link" href="{{object.original_url}}"> link </a> in <br> <p id="countdown"></p>
+                    </h2>
+        
+                    {% if object.page_info %}
+                        <p>{{object.page_info}}</p>
+                    {% elif object.metadescription %}
+                        <p>{{object.metadescription}}</p><br>
+                        <p>{{object.metatitle}}</p><br>
+                    {% else %}
+                        <p>Take a moment to rest</p>
+                    {% endif %}
+        
+                    <a href="https://www.faraday.africa" class="link_404">Go to Home</a>
+                    <a href="https://events.faraday.africa" class="link_404">See Our Events</a>
+                    <a href="https://community.faraday.africa" class="link_404">Visit the Community</a>
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
+        </section>
+
+        <script>
+
+                var link = document.getElementById("redirect_link").href;
+                var timeleft = 4;
+                var downloadTimer = setInterval(function(){
+                if(timeleft <= 0){
+                    window.location.href = link;
+                } else {
+                    document.getElementById("countdown").innerHTML = timeleft + " seconds";
+                }
+                timeleft -= 1;
+                }, 1000);
+            
+
+        </script>
+
+    </body>
+
+    <footer>
+        <hr>
+        <p>&copy Faraday 2022. All Rights Reserved.</p>
+    </footer>
+</html>

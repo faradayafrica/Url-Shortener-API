@@ -24,12 +24,25 @@ def home(request):
 def Redirect(request, url):
         
         try:
-            original_url = get_object_or_404(UrlModel, short_url=url).original_url
-            return HttpResponseRedirect(redirect_to=original_url)
-        except Http404:
-            pass
-        return render(request, "core/404.html")
+            original_url = get_object_or_404(UrlModel, short_url=url)
+            
+            if original_url.redirect == 0:        
+                return HttpResponseRedirect(redirect_to=original_url.original_url)
+            else:
+                
+                context = {
+                    'object': original_url
+                }
 
+                return render(request, "core/redirect.html", context)
+        except Http404:
+            return render(request, "core/404.html")
+
+"""The view called by ajax to redirect a short url to the original link"""
+@api_view(['GET'])  
+def AjaxRedirect(request):
+    
+    return render(request, "core/redirect.html")
 
 @api_view(['POST'])  
 def Shorten(request):

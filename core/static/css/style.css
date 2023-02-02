@@ -23,6 +23,13 @@ body {
     background-position: center;
     background-repeat: no-repeat;
   }
+
+  .redirect_four_zero_four_bg.img{
+    background-image: url('../images/wait.gif');
+    height: 400px;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
   
   .four_zero_four_bg h1 {
     font-size: 80px;

@@ -4,6 +4,7 @@ from string import ascii_letters
 from rest_framework import serializers
 
 from core.models import UrlModel
+from core.utils import Metadata, Metadatareader
 
 
 def generate_url():
@@ -64,8 +65,29 @@ class UrlSerializer(serializers.ModelSerializer):
         if not short_url:
             short_url = generate_url()
             
-
-        url_instance = UrlModel(short_url=short_url, **validated_data)
-        url_instance.save()
+        content = validated_data.pop('original_url')
+        checked = validated_data.pop('redirect')
+        page_info = validated_data.pop('page_info')
+        
+        if checked == 1:
+            
+            metadata = Metadatareader.get_metadata_from_url_in_text(content)
+            
+            url_instance = UrlModel(
+                short_url=short_url,
+                original_url = content,
+                redirect = checked,
+                page_info = page_info,
+                metatitle = metadata.title,
+                metadescription = metadata.description,
+                metaimage = metadata.image,)
+            url_instance.save()
+        else:
+            url_instance = UrlModel(
+                short_url=short_url,
+                original_url = content,
+                redirect = checked,
+                )
+            url_instance.save()
         
         return url_instance

@@ -66,7 +66,8 @@ class UrlSerializer(serializers.ModelSerializer):
             short_url = generate_url()
             
         content = validated_data.pop('original_url')
-        checked = validated_data.pop('redirect')
+        
+        checked = validated_data.pop('redirect', None)
         if not checked:
             checked = 0
 

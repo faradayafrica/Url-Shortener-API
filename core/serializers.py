@@ -67,7 +67,10 @@ class UrlSerializer(serializers.ModelSerializer):
             
         content = validated_data.pop('original_url')
         checked = validated_data.pop('redirect')
-        page_info = validated_data.pop('page_info')
+
+        page_info = validated_data.pop('page_info', None)
+        if not page_info:
+            page_info = ""
         
         if checked == 1:
             

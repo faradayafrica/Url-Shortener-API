@@ -8,6 +8,8 @@ from decouple import config
 def main():
     if config('DJANGO_DEVELOPMENT') == 'dev':
         os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'UrlShortener.settings.development')
+    elif config('DJANGO_DEVELOPMENT') == 'production':
+        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'UrlShortener.settings.settings')
     else:
         os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'UrlShortener.settings.settings')
     try:

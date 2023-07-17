@@ -14,6 +14,8 @@ from django.core.asgi import get_asgi_application
 
 if config('DJANGO_DEVELOPMENT') == 'dev':
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'UrlShortener.settings.development')
+elif config('DJANGO_DEVELOPMENT') == 'production':
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'UrlShortener.settings.settings')
 else:
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'UrlShortener.settings.settings')
 

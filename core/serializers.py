@@ -77,12 +77,7 @@ class UrlSerializer(serializers.ModelSerializer):
             elif "?" in content and 'fshid' not in content:
                 content = content + f'&fshid={self.context["request"].user.id}&fshort={short_url}&utm_source=fshort&utm_medium=referral&utm_campaign=fshort' if self.context["request"].user.is_authenticated else content + f'?fshort={short_url}&utm_source=fshort&utm_medium=referral&utm_campaign=fshort'
         
-        # Check if request is coming from Faraday API
-        elif self.context["request"].data.get('source') and self.context["request"].data.get('source') == 'FBA':
-            
-            content = content + f'?fshort={short_url}&utm_source=fshort&utm_medium=qshot&utm_campaign=fshort'
-        
-        elif not self.context["request"].META.get('HTTP_REFERER') and 'faraday.africa' in content:
+        elif self.context["request"].META.get('HTTP_REFERER') and 'link.faraday.africa' in self.context["request"].META.get('HTTP_REFERER'):
             
             if "?" in content and 'fshid' in content and 'fshort' in content and 'utm_source' in content and 'utm_medium' in content and 'utm_campaign' in content:
                 return
@@ -91,6 +86,10 @@ class UrlSerializer(serializers.ModelSerializer):
             elif "?" not in content and 'fshid' not in content and 'fshort' not in content and 'utm_source' not in content and 'utm_medium' not in content and 'utm_campaign' not in content:
                 content = content + f'?fshort={short_url}&utm_source=fshort&utm_medium=referral&utm_campaign=fshort'
         
+        # Check if request is coming from Faraday API
+        elif self.context["request"].data.get('source') and self.context["request"].data.get('source') == 'FBA':
+            
+            content = content + f'?fshort={short_url}&utm_source=fshort&utm_medium=qshot&utm_campaign=fshort'
         checked = validated_data.pop('redirect', None)
         if not checked:
             checked = 0

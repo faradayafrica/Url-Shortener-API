@@ -53,7 +53,7 @@ def NewAjaxRedirect(request):
 @api_view(['POST'])  
 def Shorten(request):
 
-    serializer = UrlSerializer(data=request.data)
+    serializer = UrlSerializer(data=request.data, context={'request': request})
     if serializer.is_valid():
         serializer.save()
         returned_data = serializer.data.get('short_url')

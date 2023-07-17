@@ -130,3 +130,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 SECURE_SSL_REDIRECT = False
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        "LOCATION": config("CACHE_URL"), # in the format of redis://:password@host:port/db_number
+        "TIMEOUT": None
+    }
+}

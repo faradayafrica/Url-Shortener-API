@@ -68,7 +68,7 @@ class UrlSerializer(serializers.ModelSerializer):
         content = validated_data.pop('original_url')
         
         # Check if the request if coming from the domain of faraday.africa
-        if self.context["request"].META.get('HTTP_REFERER') and 'app.faraday.africa' in self.context["request"].META.get('HTTP_REFERER') or 'app-staging.faraday.africa' in self.context["request"].META.get('HTTP_REFERER'):
+        if self.context["request"].META.get('HTTP_REFERER') and ('app.faraday.africa' in self.context["request"].META.get('HTTP_REFERER') or 'app-staging.faraday.africa' in self.context["request"].META.get('HTTP_REFERER')):
             
             if not "?" in content and 'fshid' not in content:
                 content = content + f'?fshid={self.context["request"].user.id}&fshort={short_url}&utm_source=fshort&utm_medium=referral&utm_campaign=fshort' if self.context["request"].user.is_authenticated else content + f'?fshort={short_url}&utm_source=fshort&utm_medium=referral&utm_campaign=fshort'
@@ -90,6 +90,7 @@ class UrlSerializer(serializers.ModelSerializer):
         elif self.context["request"].data.get('source') and self.context["request"].data.get('source') == 'FBA':
             
             content = content + f'?fshort={short_url}&utm_source=fshort&utm_medium=qshot&utm_campaign=fshort'
+        
         checked = validated_data.pop('redirect', None)
         if not checked:
             checked = 0

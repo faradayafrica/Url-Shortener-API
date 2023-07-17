@@ -67,6 +67,30 @@ class UrlSerializer(serializers.ModelSerializer):
             
         content = validated_data.pop('original_url')
         
+        # Check if the request if coming from the domain of faraday.africa
+        if self.context["request"].META.get('HTTP_REFERER') and 'app.faraday.africa' in self.context["request"].META.get('HTTP_REFERER') or 'app-staging.faraday.africa' in self.context["request"].META.get('HTTP_REFERER'):
+            
+            if not "?" in content and 'fshid' not in content:
+                content = content + f'?fshid={self.context["request"].user.id}&fshort={short_url}&utm_source=fshort&utm_medium=referral&utm_campaign=fshort' if self.context["request"].user.is_authenticated else content + f'?fshort={short_url}&utm_source=fshort&utm_medium=referral&utm_campaign=fshort'
+            elif "?" in content and 'fshid' in content:
+                content = content + f'&fshort={short_url}&utm_source=fshort&utm_medium=referral&utm_campaign=fshort'
+            elif "?" in content and 'fshid' not in content:
+                content = content + f'&fshid={self.context["request"].user.id}&fshort={short_url}&utm_source=fshort&utm_medium=referral&utm_campaign=fshort' if self.context["request"].user.is_authenticated else content + f'?fshort={short_url}&utm_source=fshort&utm_medium=referral&utm_campaign=fshort'
+        
+        # Check if request is coming from Faraday API
+        elif self.context["request"].data.get('source') and self.context["request"].data.get('source') == 'FBA':
+            
+            content = content + f'?fshort={short_url}&utm_source=fshort&utm_medium=qshot&utm_campaign=fshort'
+        
+        elif not self.context["request"].META.get('HTTP_REFERER') and 'faraday.africa' in content:
+            
+            if "?" in content and 'fshid' in content and 'fshort' in content and 'utm_source' in content and 'utm_medium' in content and 'utm_campaign' in content:
+                return
+            elif "?" in content and 'fshid' not in content and 'fshort' not in content and 'utm_source' not in content and 'utm_medium' not in content and 'utm_campaign' not in content:
+                content = content + f'&fshort={short_url}&utm_source=fshort&utm_medium=referral&utm_campaign=fshort'
+            elif "?" not in content and 'fshid' not in content and 'fshort' not in content and 'utm_source' not in content and 'utm_medium' not in content and 'utm_campaign' not in content:
+                content = content + f'?fshort={short_url}&utm_source=fshort&utm_medium=referral&utm_campaign=fshort'
+        
         checked = validated_data.pop('redirect', None)
         if not checked:
             checked = 0

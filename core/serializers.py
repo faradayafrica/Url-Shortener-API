@@ -71,11 +71,11 @@ class UrlSerializer(serializers.ModelSerializer):
         if self.context["request"].META.get('HTTP_REFERER') and ('app.faraday.africa' in self.context["request"].META.get('HTTP_REFERER') or 'app-staging.faraday.africa' in self.context["request"].META.get('HTTP_REFERER')):
             
             if not "?" in content and 'fshid' not in content:
-                content = content + f'?fshid={self.context["request"].user.id}&fshort={short_url}&utm_source=fshort&utm_medium=referral&utm_campaign=fshort' if self.context["request"].user.is_authenticated else content + f'?fshort={short_url}&utm_source=fshort&utm_medium=referral&utm_campaign=fshort'
+                content = content + f'?fshid={self.context["request"].user.id}&fshort={short_url}&utm_source=fshort&utm_medium=referral&utm_campaign=fshort' if self.context["request"].auth else content + f'?fshort={short_url}&utm_source=fshort&utm_medium=referral&utm_campaign=fshort'
             elif "?" in content and 'fshid' in content:
                 content = content + f'&fshort={short_url}&utm_source=fshort&utm_medium=referral&utm_campaign=fshort'
             elif "?" in content and 'fshid' not in content:
-                content = content + f'&fshid={self.context["request"].user.id}&fshort={short_url}&utm_source=fshort&utm_medium=referral&utm_campaign=fshort' if self.context["request"].user.is_authenticated else content + f'?fshort={short_url}&utm_source=fshort&utm_medium=referral&utm_campaign=fshort'
+                content = content + f'&fshid={self.context["request"].user.id}&fshort={short_url}&utm_source=fshort&utm_medium=referral&utm_campaign=fshort' if self.context["request"].auth else content + f'?fshort={short_url}&utm_source=fshort&utm_medium=referral&utm_campaign=fshort'
         
         elif self.context["request"].META.get('HTTP_REFERER') and 'link.faraday.africa' in self.context["request"].META.get('HTTP_REFERER'):
             

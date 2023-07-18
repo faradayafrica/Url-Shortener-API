@@ -1,14 +1,13 @@
-
-import os
-from django.http import HttpResponseRedirect
-from django.http.response import Http404
-from django.shortcuts import get_object_or_404
-from rest_framework.response import Response
-from rest_framework.views import APIView
-from rest_framework.decorators import api_view
-from django.shortcuts import render
 from core.models import UrlModel
+from django.shortcuts import render
+from django.http.response import Http404
 from core.serializers import UrlSerializer
+from rest_framework.response import Response
+from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404
+from rest_framework.decorators import api_view
+from rest_framework.permissions import AllowAny
+from rest_framework.decorators import api_view, permission_classes
 
 
 def home(request):
@@ -50,13 +49,13 @@ def NewAjaxRedirect(request):
     
     return render(request, "core/index.html")
 
-@api_view(['POST'])  
+@api_view(["POST"])
+@permission_classes((AllowAny,))
 def Shorten(request):
 
     serializer = UrlSerializer(data=request.data, context={'request': request})
     if serializer.is_valid():
         serializer.save()
-        returned_data = serializer.data.get('short_url')
         
         return Response(serializer.data, status=201)
     else:

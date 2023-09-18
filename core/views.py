@@ -29,8 +29,8 @@ def Redirect(request, url):
             if original_url.custom_meta == 1:
                 
                 custom_title = original_url.metatitle
-                custom_description = original_url.metaimage
-                custom_image_url = original_url.metadescription
+                custom_description = original_url.metadescription
+                custom_image_url = original_url.metaimage
 
                 html = f"""
                 <!DOCTYPE html>

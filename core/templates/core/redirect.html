@@ -13,12 +13,10 @@
       <meta property="og:title" content="Faraday Link Shortener | Redirecting..." />
   {% endif %}
 
-  {% if object.page_info %}
-      <meta property="og:description" content="{{object.page_info}}" />
-  {% elif object.metadescription %}
+  {% if object.metadescription %}
       <meta property="og:description" content="{{object.metadescription}}" />
   {% else %}
-      <meta property="og:description" content="Redirecting to link in 4 seconds" />
+      <meta property="og:description" content="Redirecting to link in 6 seconds..." />
   {% endif %}
 
   {% if object.metaimage %}
@@ -110,19 +108,7 @@
       <div class="container">
         <div class="row justify-content-center">
 
-          {% if object.page_info and object.metadescription and object.metatitle %}
-          <div class="col-md-6 col-lg-4 py-3 wow fadeInUp">
-            <div class="d-flex flex-row">
-              <div class="img-fluid mr-3">
-                <img src="{% static 'new/img/icon_pattern.svg' %}" alt="">
-              </div>
-              <div>
-                <h3>Link information</h3>
-                <h6>{{object.page_info}}</h6>
-                <p><small>This information was provided when the link was shortened</small></p>
-              </div>
-            </div>
-          </div>
+          {% if object.metadescription and object.metatitle %}
 
           <div class="col-md-6 col-lg-4 py-3 wow fadeInUp">
             <div class="d-flex flex-row">
@@ -160,45 +146,7 @@
             </div>
           </div>
 
-          {% elif object.metadescription and object.metatitle %}
-
-          <div class="col-md-6 col-lg-4 py-3 wow fadeInUp">
-            <div class="d-flex flex-row">
-              <div class="img-fluid mr-3">
-                <img src="{% static 'new/img/icon_pattern.svg' %}" alt="">
-              </div>
-              <div>
-                <h3>Link Description</h3>
-                <h6>{{object.metadescription}}</h6>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-6 col-lg-4 py-3 wow fadeInUp">
-            <div class="d-flex flex-row">
-              <div class="img-fluid mr-3">
-                <img src="{% static 'new/img/icon_pattern.svg' %}" alt="">
-              </div>
-              <div>
-                <h3>Link Title</h3>
-                <h6>{{object.metatitle}}</h6>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-6 col-lg-4 py-3 wow fadeInUp">
-            <div class="d-flex flex-row">
-              <div class="img-fluid mr-3">
-                <img src="{% static 'new/img/icon_pattern.svg' %}" alt="">
-              </div>
-              <div>
-                <h3>Link URL</h3>
-                <h6>{{object.original_url}}</h6>
-              </div>
-            </div>
-          </div>
-
-          {% elif not object.page_info or object.metadescription or object.metatitle %}
+          {% elif not object.metadescription or object.metatitle %}
 
           <div class="col-md-6 col-lg-4 py-3 wow fadeInUp">
             <div class="d-flex flex-row">

@@ -140,9 +140,12 @@ class UrlSerializer(serializers.Serializer):
                 meta_title = ""
                 
             meta_image = validated_data.pop('meta_image', None)
-            if not meta_image:
+            meta_title_url = validated_data.pop('meta_image_url', None)
+            if not meta_image and not meta_title_url:
                 meta_image = ""
-            else:
+            elif meta_title_url and not meta_image:
+                meta_image = meta_title_url
+            elif meta_image:
                 meta_image = upload_base64_to_cloudinary(meta_image)
             
             if customise_meta == 0 and checked == 0:

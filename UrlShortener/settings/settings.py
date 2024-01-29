@@ -135,10 +135,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-CSRF_TRUSTED_ORIGINS = [
-    "https://link.faraday.africa",
-    "https://frda.azurewebsites.net",
-]
+# CSRF_TRUSTED_ORIGINS = [
+#     "https://frda.azurewebsites.net",
+#     "https://frda.me",
+# ]
 
 CORS_ALLOW_ALL_ORIGINS = True
 

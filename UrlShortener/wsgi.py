@@ -12,10 +12,10 @@ from decouple import config
 from django.core.wsgi import get_wsgi_application
 from whitenoise import WhiteNoise
 
-if config('DJANGO_DEVELOPMENT') == 'dev':
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'UrlShortener.settings.development')
-else:
+if config('DJANGO_DEVELOPMENT') == 'prod':
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'UrlShortener.settings.settings')
+else:
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'UrlShortener.settings.development')
 
 application = get_wsgi_application()
 application = WhiteNoise(application)

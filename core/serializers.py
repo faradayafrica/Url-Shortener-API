@@ -104,9 +104,9 @@ class UrlSerializer(serializers.Serializer):
                 num += 1
 
             # Update the 'short_url' key in request.data with the modified value
-            data['short_url'] = short_url
+            request.data['short_url'] = short_url
         
-        return data
+        return request.data
 
     def create(self, validated_data):
         """creates a new url to the db"""

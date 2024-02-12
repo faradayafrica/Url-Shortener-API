@@ -78,7 +78,10 @@ class UrlSerializer(serializers.Serializer):
         """
 
         request = self.context.get("request")
-        short_url = request.data.get("short_url")
+        original_url = request.data.get("original_url")
+        if not original_url:
+            raise serializers.ValidationError("You need to provide a URL to create a custom short URL.")
+        
         auth_code = request.data.get("auth_code")
         if not auth_code:
             serializers.ValidationError("You need to provide an auth code to create a custom short URL.")
@@ -88,6 +91,7 @@ class UrlSerializer(serializers.Serializer):
                 # Raise 401 error if the auth code is invalid
                 raise AuthenticationFailed("Invalid auth code")
         
+        short_url = request.data.get("short_url")
         if not short_url:
             short_url = generate_url()
         else:

@@ -6,6 +6,7 @@ import string, random
 from PIL import Image
 from django.conf import settings
 from rest_framework import serializers
+from rest_framework.exceptions import AuthenticationFailed
 
 from core.models import UrlModel
 from core.utils import Metadata, Metadatareader
@@ -66,32 +67,41 @@ class UrlModelSerializer(serializers.ModelSerializer):
         fields = ['short_url', 'original_url']
 
 class UrlSerializer(serializers.Serializer):
-    """Serializers for url model"""
+    """Serializer for url model"""
 
     def validate(self, data):
-        """validates the passed data
-
-        raises error if the slug entered by user exists and
-        can't even be added a num to its end
         """
-        
-        # get request in context dictionary
+        Validate the passed data.
+
+        Raises an error if the slug entered by the user exists and
+        cannot be modified to make it unique.
+        """
+
         request = self.context.get("request")
-        data = request.data
-        short_url = data.get("short_url")
-
-        url = short_url  # just an alias
-        if UrlModel.objects.filter(short_url=url):
+        short_url = request.data.get("short_url")
+        auth_code = request.data.get("auth_code")
+        if not auth_code:
+            serializers.ValidationError("You need to provide an auth code to create a custom short URL.")
+        else:
+            authentication_codes = settings.AUTHENTICATION_CODES
+            if auth_code not in authentication_codes:
+                # Raise 401 error if the auth code is invalid
+                raise AuthenticationFailed("Invalid auth code")
+        
+        if not short_url:
+            short_url = generate_url()
+        else:
+            original_short_url = short_url
             num = 2
-            while UrlModel.objects.filter(short_url=url):
+            while UrlModel.objects.filter(short_url=short_url).exists():
                 if num == 100:
-                    raise serializers.ValidationError('this short url cant be registered')
-                url = short_url + '-' + str(num)
-                num = num + 1
+                    raise serializers.ValidationError("This short URL can't be registered.")
+                short_url = f"{original_short_url}-{num}"
+                num += 1
 
-                # Update the 'short_url' key in request.data with the modified value
-                data['short_url'] = url
-
+            # Update the 'short_url' key in request.data with the modified value
+            data['short_url'] = short_url
+        
         return data
 
     def create(self, validated_data):
@@ -101,8 +111,6 @@ class UrlSerializer(serializers.Serializer):
 
             # if user didn't pass url generate a new one
             short_url = validated_data.pop('short_url', '').replace(" ", '-')
-            if not short_url:
-                short_url = generate_url()
                 
             content = validated_data.pop('original_url')
             

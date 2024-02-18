@@ -66,11 +66,15 @@ def Redirect(request, url):
 @permission_classes((AllowAny,))
 def Shorten(request):
 
-    serializer = UrlSerializer(data=request.data, context={'request': request})
-    if serializer.is_valid():
-        serialized_data = serializer.validated_data
-        response = serializer.save(validated_data=serialized_data)
-        
-        return Response(response, status=201)
-    else:
-        return Response(serializer.errors, status=400)
+    try:
+        serializer = UrlSerializer(data=request.data, context={'request': request})
+        if serializer.is_valid():
+            response = serializer.save()
+            
+            return Response(response, status=201)
+        else:
+            return Response(serializer.errors, status=400)
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        return Response(str(e), status=500)

@@ -164,14 +164,16 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 SECURE_SSL_REDIRECT = False
 
-CACHES = {
-    'default': {
-        'BACKEND': 'django_redis.cache.RedisCache',
-        "LOCATION": config("CACHE_URL"), # in the format of redis://:password@host:port/db_number
-        "TIMEOUT": None
-    }
-}
+# CACHES = {
+#     'default': {
+#         'BACKEND': 'django_redis.cache.RedisCache',
+#         "LOCATION": config("CACHE_URL"), # in the format of redis://:password@host:port/db_number
+#         "TIMEOUT": None
+#     }
+# }
 
 CLOUDINARY_CLOUD_NAME = config('CLOUDINARY_CLOUD_NAME')
 CLOUDINARY_API_KEY = config('CLOUDINARY_API_KEY')
 CLOUDINARY_API_SECRET = config('CLOUDINARY_API_SECRET')
+
+AUTHENTICATION_CODES = config('AUTHENTICATION_CODES').split(',')

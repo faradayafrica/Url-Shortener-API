@@ -160,7 +160,7 @@ class UrlSerializer(serializers.Serializer):
                     )
 
             
-            redirect_check = 0 if validated_data.pop('redirect') == 0 else 1
+            redirect_check = 1 if validated_data.pop('redirect') == 1 else 0
             customise_meta = 0 if validated_data.pop('set_meta') == 0 else 1
             
             if customise_meta == 0 and redirect_check == 0:
